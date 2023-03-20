@@ -82,5 +82,43 @@ namespace exercise_log
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
+
+        private void exerciseName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void submitBtn_Click(object sender, EventArgs e)
+        {
+            //getting the user input
+            string userInputName = exerciseName.Text;
+            string userNotes = notesText.Text;
+            string userMetValue = metValue.Text;
+            string userCBPM = caloriesBPM.Text;
+
+            //need to create a weighted exercise here,
+
+            //getting the muscle groups that the user checked
+            //also storing the muscle categories in a seperate table
+            List<int> muscleGroupsChecked = new List<int>();
+
+            foreach (object itemChecked in muscleGroups.CheckedItems)
+            {
+                string selectedItemName = itemChecked.ToString();
+
+                using (var conn = new MySqlConnection(ConnectionString))
+                {
+                    conn.Open();
+                    string getIdsQuery = "SELECT id FROM muscle_groups WHERE muscle_name = @itemname";
+                    MySqlCommand cmd = new MySqlCommand(getIdsQuery, conn);
+                    cmd.Parameters.AddWithValue("@itemname", selectedItemName);
+
+                    int itemID = (int)cmd.ExecuteScalar();
+                    muscleGroupsChecked.Add(itemID);
+                }
+            }
+
+            MessageBox.Show(string.Join(", ", muscleGroupsChecked));
+        }
     }
 }

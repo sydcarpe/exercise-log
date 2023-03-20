@@ -58,6 +58,7 @@
             this.exerciseName.Name = "exerciseName";
             this.exerciseName.Size = new System.Drawing.Size(407, 31);
             this.exerciseName.TabIndex = 1;
+            this.exerciseName.TextChanged += new System.EventHandler(this.exerciseName_TextChanged);
             // 
             // hintname
             // 
@@ -143,6 +144,7 @@
             this.submitBtn.TabIndex = 11;
             this.submitBtn.Text = "create new workout";
             this.submitBtn.UseVisualStyleBackColor = true;
+            this.submitBtn.Click += new System.EventHandler(this.submitBtn_Click);
             // 
             // Form1
             // 
